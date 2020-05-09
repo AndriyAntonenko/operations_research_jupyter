@@ -13076,11 +13076,12 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[168]:</div>
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Float</span><span class="p">,</span> <span class="n">init_printing</span><span class="p">,</span> <span class="n">Array</span><span class="p">,</span> <span class="n">relational</span><span class="p">,</span> <span class="n">symbols</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Float</span><span class="p">,</span> <span class="n">init_printing</span><span class="p">,</span> <span class="n">Array</span><span class="p">,</span> <span class="n">relational</span><span class="p">,</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Matrix</span>
 <span class="n">init_printing</span><span class="p">()</span>
 </pre></div>
 
@@ -13098,24 +13099,26 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[169]:</div>
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">target_function</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x1</span><span class="o">*</span><span class="n">x2</span> <span class="o">+</span> <span class="n">x2</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x1</span><span class="o">*</span><span class="n">x2</span> <span class="o">+</span> <span class="mi">6</span><span class="o">*</span><span class="n">x2</span><span class="o">**</span><span class="mi">2</span>
 
 
 <span class="k">def</span> <span class="nf">df_dx1</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">4</span><span class="o">*</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span>
+    <span class="k">return</span> <span class="mi">4</span><span class="o">*</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">-</span> <span class="mi">4</span>
 
 
 <span class="k">def</span> <span class="nf">df_dx2</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x2</span>
+    <span class="k">return</span> <span class="n">x1</span> <span class="o">+</span> <span class="mi">12</span><span class="o">*</span><span class="n">x2</span>
 
 
 <span class="n">ANALYTICAL_GRADIENT</span> <span class="o">=</span> <span class="p">[</span><span class="n">df_dx1</span><span class="p">,</span> <span class="n">df_dx2</span><span class="p">]</span>
-<span class="n">START_POINT</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="n">ANALYTICAL_HESSE</span> <span class="o">=</span> <span class="p">[[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="n">START_POINT</span> <span class="o">=</span> <span class="p">[</span><span class="mf">5.2</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">]</span>
+<span class="n">ANALYTICAL_HESSE</span> <span class="o">=</span> <span class="p">[[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">12</span><span class="p">]]</span>
+
+<span class="n">x_min</span><span class="p">,</span> <span class="n">f_min</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x_min f_min&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13132,7 +13135,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[170]:</div>
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">calculate_gradient</span><span class="p">(</span><span class="n">analytical_gradient</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
@@ -13156,6 +13159,13 @@ div#notebook {
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gradient</span><span class="p">)):</span>
         <span class="n">anti_gradient</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">gradient</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">anti_gradient</span>
+
+
+<span class="k">def</span> <span class="nf">calculate_gradient_norm</span><span class="p">(</span><span class="n">gradient</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gradient</span><span class="p">)):</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="n">gradient</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">calculate_optimal_step</span><span class="p">(</span><span class="n">s_vector</span><span class="p">,</span> <span class="n">gradient_values</span><span class="p">,</span> <span class="n">hesse</span><span class="p">):</span>
@@ -13198,7 +13208,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[171]:</div>
+<div class="prompt input_prompt">In&nbsp;[63]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">calculate_new_direction_fr</span><span class="p">(</span><span class="n">anti_gradient</span><span class="p">,</span> <span class="n">prev_gradient</span><span class="p">,</span> <span class="n">current_gradient</span><span class="p">,</span> <span class="n">prev_direction</span><span class="p">):</span>
@@ -13260,8 +13270,12 @@ div#notebook {
     <span class="k">return</span> <span class="n">points</span><span class="p">,</span> <span class="n">gradient_norms</span>
 
 
-<span class="n">points_array</span><span class="p">,</span> <span class="n">gradient_norms_array</span> <span class="o">=</span> <span class="n">fletcher_rives_method</span><span class="p">(</span><span class="n">ANALYTICAL_GRADIENT</span><span class="p">,</span> <span class="n">START_POINT</span><span class="p">,</span> <span class="n">ANALYTICAL_HESSE</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
-<span class="n">x_min</span><span class="p">,</span> <span class="n">f_min</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;x_min f_min&#39;</span><span class="p">)</span>
+<span class="n">fr_points_array</span><span class="p">,</span> <span class="n">fr_gradient_norms_array</span> <span class="o">=</span> <span class="n">fletcher_rives_method</span><span class="p">(</span>
+    <span class="n">ANALYTICAL_GRADIENT</span><span class="p">,</span>
+    <span class="n">START_POINT</span><span class="p">,</span>
+    <span class="n">ANALYTICAL_HESSE</span><span class="p">,</span>
+    <span class="mf">0.01</span>
+<span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13278,10 +13292,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[172]:</div>
+<div class="prompt input_prompt">In&nbsp;[64]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">relational</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">Array</span><span class="p">(</span><span class="n">points_array</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">points_array</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">relational</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">Array</span><span class="p">(</span><span class="n">fr_points_array</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fr_points_array</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -13294,13 +13308,13 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[172]:</div>
+    <div class="prompt output_prompt">Out[64]:</div>
 
 
 
 
 <div class="output_latex output_subarea output_execute_result">
-$\displaystyle x_{min} = \left[\begin{matrix}1.66533453693773 \cdot 10^{-16} & 2.22044604925031 \cdot 10^{-16}\end{matrix}\right]$
+$\displaystyle x_{min} = \left[\begin{matrix}1.02127659574468 & -0.0851063829787198\end{matrix}\right]$
 </div>
 
 </div>
@@ -13311,10 +13325,10 @@ $\displaystyle x_{min} = \left[\begin{matrix}1.66533453693773 \cdot 10^{-16} & 2
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[173]:</div>
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">relational</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">f_min</span><span class="p">,</span> <span class="n">Float</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">target_function</span><span class="p">(</span><span class="o">*</span><span class="n">points_array</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">points_array</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])),</span> <span class="mi">5</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">relational</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">f_min</span><span class="p">,</span> <span class="n">Float</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">target_function</span><span class="p">(</span><span class="o">*</span><span class="n">fr_points_array</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fr_points_array</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])),</span> <span class="mi">5</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13327,13 +13341,164 @@ $\displaystyle x_{min} = \left[\begin{matrix}1.66533453693773 \cdot 10^{-16} & 2
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[173]:</div>
+    <div class="prompt output_prompt">Out[65]:</div>
 
 
 
 
 <div class="output_latex output_subarea output_execute_result">
-$\displaystyle f_{min} = 1.4175 \cdot 10^{-31}$
+$\displaystyle f_{min} = -0.042553$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="DFP-method">DFP method<a class="anchor-link" href="#DFP-method">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">calculate_new_matrix_a</span><span class="p">(</span><span class="n">prev_matrix</span><span class="p">,</span> <span class="n">delta_x</span><span class="p">,</span> <span class="n">delta_g</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">prev_matrix</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">delta_x</span><span class="p">)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">delta_g</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="n">a</span> <span class="o">+</span>
+        <span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">g</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span>
+        <span class="p">(((</span><span class="n">a</span> <span class="o">*</span> <span class="n">g</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="p">(((</span><span class="n">g</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+
+
+<span class="k">def</span> <span class="nf">dfp_method</span><span class="p">(</span><span class="n">analytical_gradient</span><span class="p">,</span> <span class="n">start_point</span><span class="p">,</span> <span class="n">hesse</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Minimization of function by DFP method</span>
+<span class="sd">    :param analytical_gradient: list of lambdas     (analytical gradient)</span>
+<span class="sd">    :param start_point:         list of numbers     (start point)</span>
+<span class="sd">    :param hesse:               2d list of numbers  (hesse&#39;s matrix)</span>
+<span class="sd">    :param epsilon:             float               (accuracy)</span>
+<span class="sd">    :return: list of points and list of gradients norms for each iteration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">gradient_norms</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">start_point</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">calculate_gradient</span><span class="p">(</span><span class="n">analytical_gradient</span><span class="p">,</span> <span class="n">point</span><span class="p">))</span>
+    <span class="n">a_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">analytical_gradient</span><span class="p">)))</span>
+
+    <span class="n">direction</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">a_matrix</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="n">calculate_optimal_step</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">hesse</span><span class="p">)</span>
+    <span class="n">gradient_norm</span> <span class="o">=</span> <span class="n">calculate_gradient_norm</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span>
+
+    <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+    <span class="n">gradient_norms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gradient_norm</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">gradient_norm</span> <span class="o">&gt;</span> <span class="n">epsilon</span><span class="p">:</span>
+        <span class="n">new_point</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">point</span><span class="p">),</span> <span class="p">(</span><span class="n">step</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">direction</span><span class="p">)))</span>
+        <span class="n">new_gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">calculate_gradient</span><span class="p">(</span><span class="n">analytical_gradient</span><span class="p">,</span> <span class="n">new_point</span><span class="p">))</span>
+
+        <span class="n">delta_g</span> <span class="o">=</span> <span class="n">new_gradient</span> <span class="o">-</span> <span class="n">gradient</span>
+        <span class="n">delta_x</span> <span class="o">=</span> <span class="n">new_point</span> <span class="o">-</span> <span class="n">point</span>
+
+        <span class="n">a_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">calculate_new_matrix_a</span><span class="p">(</span><span class="n">a_matrix</span><span class="p">,</span> <span class="n">delta_x</span><span class="p">,</span> <span class="n">delta_g</span><span class="p">))</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">a_matrix</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">new_gradient</span><span class="p">)</span>
+
+        <span class="n">gradient</span> <span class="o">=</span> <span class="n">new_gradient</span>
+        <span class="n">gradient_norm</span> <span class="o">=</span> <span class="n">calculate_gradient_norm</span><span class="p">(</span><span class="n">new_gradient</span><span class="p">)</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="n">calculate_optimal_step</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">hesse</span><span class="p">)</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">new_point</span>
+
+        <span class="n">gradient_norms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gradient_norm</span><span class="p">)</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">point</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">points</span><span class="p">,</span> <span class="n">gradient_norms</span>
+
+<span class="n">dfp_points_array</span><span class="p">,</span> <span class="n">dfp_norms_array</span> <span class="o">=</span> <span class="n">dfp_method</span><span class="p">(</span>
+    <span class="n">ANALYTICAL_GRADIENT</span><span class="p">,</span>
+    <span class="n">START_POINT</span><span class="p">,</span>
+    <span class="n">calculate_hesse</span><span class="p">(</span><span class="n">ANALYTICAL_HESSE</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
+    <span class="mf">0.01</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Fletcher-rives-method-result">Fletcher-rives method result<a class="anchor-link" href="#Fletcher-rives-method-result">&#182;</a></h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">relational</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">Array</span><span class="p">(</span><span class="n">dfp_points_array</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">dfp_points_array</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[67]:</div>
+
+
+
+
+<div class="output_latex output_subarea output_execute_result">
+$\displaystyle x_{min} = \left[\begin{matrix}1.02127659574468 & -0.0851063829787248\end{matrix}\right]$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">relational</span><span class="o">.</span><span class="n">Eq</span><span class="p">(</span><span class="n">f_min</span><span class="p">,</span> <span class="n">Float</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">target_function</span><span class="p">(</span><span class="o">*</span><span class="n">dfp_points_array</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">dfp_points_array</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])),</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[68]:</div>
+
+
+
+
+<div class="output_latex output_subarea output_execute_result">
+$\displaystyle f_{min} = -0.042553$
 </div>
 
 </div>
